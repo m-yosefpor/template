@@ -17,10 +17,13 @@
 - Dockerfile
 - Makefile: vendor, fmt, lint 
 
+## Gitlab Configurations
+
+CICD Variables: GITLAB_API_TOKEN, GITLAB_PRODUCTION_OKD_TOKEN, GITLAB_STAGING_OKD_TOKEN
+
 ## Development
 
 You can use docker-compose to run a local copy of the application. Here are useful Make commands:
-* `make vendor` downloads all required modules, tidy up and verify them.
 * `make build` builds Docker image locally.
 * `make run` spins up local Docker containers so you can access via web or command line.
 * `make test` runs all tests locally.

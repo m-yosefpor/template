@@ -17,9 +17,17 @@
 - Dockerfile
 - Makefile: vendor, fmt, lint 
 
+(vars)
+OKD_PRODUCTION_SERVER_HOSTNAME
+OKD_STAGING_SERVER_HOSTNAME
+
 ## Gitlab Configurations
 
-CICD Variables: GITLAB_API_TOKEN, GITLAB_PRODUCTION_OKD_TOKEN, GITLAB_STAGING_OKD_TOKEN
+- creat API token
+- CICD Variables: GITLAB_API_TOKEN, GITLAB_PRODUCTION_OKD_TOKEN, GITLAB_STAGING_OKD_TOKEN
+- master: protected: no one
+- pipeline must suceed
+- Jira integration?
 
 ## Development
 

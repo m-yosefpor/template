@@ -3,8 +3,6 @@ kind: Template
 parameters:
   - name: PROJECT_NAME
     value: TEMPLATE_SUBSTITUTE_PROJECT_NAME
-  - name: ROUTE_NAME
-    value: ${PROJECT_NAME}.apps.private.${REGION}.snappcloud.io
   - name: GIT_URL
     value: TEMPLATE_SUBSTITUTE_PROJECT_GIT
   - name: DAEMON_PORT
@@ -85,7 +83,6 @@ objects:
       router: private
     name: ${PROJECT_NAME}
   spec:
-    host: ${ROUTE_NAME}
     port:
       targetPort: web
     to:

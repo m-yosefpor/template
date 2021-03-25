@@ -11,11 +11,10 @@
 - cmd
 - pkg
 - internal
-- vendor
 
 (if not golang)
 - Dockerfile
-- Makefile: vendor, fmt, lint 
+- Makefile: vendor, fmt, lint
 
 (vars)
 OKD_PRODUCTION_SERVER_HOSTNAME

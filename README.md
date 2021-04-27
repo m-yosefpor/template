@@ -37,6 +37,14 @@ You can use docker-compose to run a local copy of the application. Here are usef
 * `make rsh` spins up a temporary container based on the built image and gives you a bash inside that container.
 * `make debug` spins up a temporary container based on the build image with sleep entrypoint, and gives you a bash inside that container to debug in case container stops immediately.
 
+## Security
+
+### Reporting security vulnerabilities
+
+If you find a security vulnerability or any security related issues, please DO NOT file a public issue, instead send your report privately to myusefpur@gmail.com. Security reports are greatly appreciated and we will publicly thank you for it.
+
+For more info please see [here](SECURITY.md)
+
 ## License
 
 GNU Affero General Public License v3.0, see [LICENSE](LICENSE).

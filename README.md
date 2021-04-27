@@ -43,7 +43,7 @@ You can use docker-compose to run a local copy of the application. Here are usef
 
 If you find a security vulnerability or any security related issues, please DO NOT file a public issue, instead send your report privately to myusefpur@gmail.com. Security reports are greatly appreciated and we will publicly thank you for it.
 
-For more info please see [here](SECURITY.md)
+For more info please see [here](SECURITY.md).
 
 ## License
 

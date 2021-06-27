@@ -8,7 +8,7 @@ More debateful, but actually have less consequence.
 
 1.  if statement doesn't flow into the next statement—that is, the body ends in break, continue, goto, or return—the unnecessary else is omitted.
 
-1. No indented if/else.. only one. If more than one, use witch/case. Also if there is a case and a default, don't use switch, use if, else.
+1. No indented if/else.. only one. If more than one, use switch/case. Also if there is a case and a default, don't use switch, use if, else.
 
 1. Use `if` first argument, if an expr is only useful for if condition and not more than that.
 

@@ -33,6 +33,8 @@ More debateful, but actually have less consequence.
     - err second
     - sort by importance? group same types
 
+    For return
+    - err last
 
 ## Principles:
 
@@ -51,11 +53,11 @@ More debateful, but actually have less consequence.
 
     - What about chaining? if return value is same as one of inputs (the main one)
 
-    - Stateful: what if a method needs some values for a client (like k8s client)? isn't it easier to have a struct and save the client/logger, etc there and use it instead?
+    - Stateful: what if a method needs some values for a client (like k8s client)? isn't it easier to have a struct and save the client/logger, etc there and use it instead? (reference)
 
     - for implementing interfaces, use method (value/refrenced base)
 
-    - For getter/setters, use method (refrence based)
+    - For getter/setters, use method (reference based)
 
 1. **Pass by Value, or, Pass by Reference**:
 
@@ -86,14 +88,18 @@ More debateful, but actually have less consequence.
 
 1. Define getters for type fields which are map/slice or struct pointer to avoid nil pointer derefrence issues in runtime. what if we could define `GetTypeA() (value, error)` and calling `a.GetTypeA().GetTypeB()` like rust, invoked errors.
 
-1. Define constructors for structs which have struct-pointer/map/slice values to avoid nil pointer derefrence issues. This should cascade to all supersede structs which embeds/contains this struct.
+1. Define constructors for structs with the name "New" + Type, when:
+    - default value is requied
+    - have struct-pointer/map/slice values to avoid nil pointer derefrence issues. This should cascade to all supersede structs which embeds/contains this struct. (Shouldn't we use either GetField method or NewType method?)
 
 1. **Exported vars, functions:** only if it is really required to have access from outside of the package. Consider YAGNI.
+    - For exported vars, use Getter and (Setters/Constructors) with unexported vars. (??)
 
 1. **Log in functions, or, not:**
 
     - For erros return err with more context Errorf and only log in main funcs
-    - For infos?!
+    - For non-failing erros, return until we want to log and ignore the warning, and then log it (as we no longer want to passs the err to the parrent caller)
+    - For infos: log before function call.
 
 1. **Define var and function for not repetitive expressions:**
 
@@ -107,6 +113,12 @@ More debateful, but actually have less consequence.
 1. An struct with only one property should be avoided (use type only). Consider YAGNI
 
 1. **Do not panic:** return err and handle in higher level. panic, os.Exit,... should happen ONLY in main func.
+
+1. **context:**
+    - when there is an external call of anytime, pass the context from main all the way down to that funtion.
+    - If a function does not have any external call, nor need any cleanup, it does not need context
+
+
 ## Logging
 
 [klog](https://github.com/kubernetes/klog) is used in this repo for logging, and not any other logging tool should be used (logrus, etc). Also `fmt` stdout/stderr should be avoided.

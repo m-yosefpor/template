@@ -27,6 +27,7 @@ More debateful, but actually have less consequence.
     - one-method interfaces are named by the method name plus an -er suffix
     - method on a well-known type, give it the same name and signature; call your string-converter method String not ToString
     - constructor functions: `New` + `Type`
+    - Do not include parent name in child name. e.g. no struct field with AnimalName when struct itself is Animal. Also in terraform modules, do not include module name in resource name ,however always include it in metadata name (the "name" property of the resource)
 
 1. **Order of args in a function:**
     - ctx first

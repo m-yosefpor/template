@@ -1,32 +1,33 @@
-#
+ARG GO_VERSION=1.17
+
 # 1. Build Container
-#
-FROM golang:1.11.4 AS build
+# We are not using Alpine for build stage as it does not include race-detection libraries
+# which is required when running tests.
+FROM golang:${GO_VERSION} AS builder
 
 ENV GO111MODULE=on \
     GOOS=linux \
     GOARCH=amd64
 
-# We are not using Alpine for build stage as it does not include race-detection libraries
-# which is required when running tests.
+
 RUN apt-get update && \
     apt-get install -y \
       git \
-      ca-certificates \
-    && \
-    mkdir -p /src
+      ca-certificates
 
-# First add modules list to better utilize caching
-COPY go.sum go.mod /src/
 WORKDIR /src
-RUN go mod download
-COPY . /src
-RUN go build -o /app/main
 
-#
+# cache deps before building and copying source so that we don't need to re-download as much
+# and so that source changes don't invalidate our downloaded layer
+COPY go.sum go.mod /src/
+RUN go mod download
+
+COPY . /src
+RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o /app/main
+
+
 # 2. Runtime Container
-#
-FROM alpine:3.8
+FROM docker.io/library/alpine:latest
 
 ENV TZ=UTC \
     PATH="/app:${PATH}"
@@ -46,6 +47,6 @@ WORKDIR /app
 
 EXPOSE 8080
 
-COPY --from=build /app /app/
+COPY --from=builder /app /app/
 
 CMD ["/app/main"]

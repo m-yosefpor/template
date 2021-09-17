@@ -1,38 +1,50 @@
 NAME = TEMPLATE_SUBSTITUTE_PROJECT_NAME
 
-.PHONY: vendor build run bash debug test fmt lint
 
+### vars
 SHELL = bash
 IMAGE = $(NAME):local
 COMPOSE = IMAGE=$(IMAGE) docker-compose
-# Run once when you clone the repo or using a new module
+
+### commands
 vendor:
 	go mod download && go mod tidy && go mod verify
 
-build:
-	docker build -t $(IMAGE) -f Dockerfile ./
+lint: vendor
+	go fmt ./...
+	go vet ./...
+	golangci-lint run ./...
 
-run: build
+test: lint
+	go test ./... -race -covermode=atomic -coverprofile=coverage.out
+	go tool cover -html=coverage.out -o ./out/coverage.html
+
+build: test
+	go build -o bin/main main.go
+
+run: test
+	go run main.go
+
+
+###### docker images
+docker-build:
+	sudo podman build -t $(IMAGE) .
+
+docker-login:
+	sudo podman login ${REG} -u ${REG_USER} -p ${REG_PASSWORD}
+
+docker-push:
+	sudo podman push $(IMAGE)
+
+docker-run:
 	$(COMPOSE) up --force-recreate
 
-clean: build
+docker-clean: build
 	$(COMPOSE) down
 
-rsh:
+docker-rsh:
 	$(COMPOSE) exec --user root $(NAME) sh -c 'bash || sh'
 	$(RUN) bash
 
-debug:
+docker-debug:
 	$(COMPOSE) run --entrypoint='sh' $(NAME) -c 'tail -f /dev/null'
-
-# Run make build once before running tests
-test:
-	./test/test.sh
-
-# Runs go-fmt on your codes except vendor and resources dirs
-fmt:
-	go fmt ./cmd/... ./pkg/...
-
-# Lint checks your codes except vendor and resources dirs
-lint:
-	golint ./cmd/... ./pkg/...

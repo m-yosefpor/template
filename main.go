@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"k8s.io/klog/v2"
+)
 
 func main() {
-	fmt.Println("Hello, World!")
+	klog.Info("Hello, World!")
 }

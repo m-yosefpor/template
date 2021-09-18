@@ -64,6 +64,6 @@ changelog: build ## Generate changelog
 release: changelog   ## Release a new tag
 	git add CHANGELOG.md
 	git commit -m "chore: update changelog for $(VERSION)"
-	git tag $(VERSION)
-	git push origin master $(VERSION)
+	git tag $(VERSION) -m "$(VERSION)"
+	git push origin main $(VERSION)
 

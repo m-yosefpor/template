@@ -1,5 +1,12 @@
 # Contributing
 
+This document explains the process of contributing to this project.
+
+First of all please follow the [CODE_OF_CONDUCT](./CODE_OF_CONDUCT.md) in all your interactions within the project.
+
+
+TODO
+
 ## Styling
 
 More debateful, but actually have less consequence.

@@ -1,5 +1,6 @@
 # TEMPLATE_SUBSTITUTE_PROJECT_NAME
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 ## TODO
 ### To write
@@ -18,12 +19,17 @@
 ### Github Configuration
 
 - description
-- tags
+- topics (tags)
 - setting > security > security alerts enabled
 - setting > security > dependabot update enabled
 - protect main: no one
 - require resolved discussion
 - required pipeline pass
+
+- github discussions
+- github pages + link in description
+- release
+- projects
 
 ### Gitlab Configurations
 
@@ -44,6 +50,12 @@ You can use docker-compose to run a local copy of the application. Here are usef
 * `make test` runs all tests locally.
 * `make rsh` spins up a temporary container based on the built image and gives you a bash inside that container.
 * `make debug` spins up a temporary container based on the build image with sleep entrypoint, and gives you a bash inside that container to debug in case container stops immediately.
+
+
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md)
 
 ## Security
 

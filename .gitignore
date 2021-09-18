@@ -1,35 +1,51 @@
+#### files
 coverage.html
 
-## folders
+### folders
 bin
 testbin
 .idea
 .history
 
+
+# Created by https://www.toptal.com/developers/gitignore/api/osx,macos,go,linux,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=osx,macos,go,linux,visualstudiocode
+
+### Go ###
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-# Test binary, build with `go test -c`
+
+# Test binary, built with `go test -c`
 *.test
+
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
-# editor and IDE paraphernalia
-*.swp
-*.swo
-*~
-#
-*.log
 
-### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-*.code-workspace
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+### Go Patch ###
+/vendor/
+/Godeps/
+
+### Linux ###
+*~
+
+# temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# KDE directory preferences
+.directory
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# .nfs files are created when an open file is removed but is still being accessed
+.nfs*
 
 ### macOS ###
 # General
@@ -39,6 +55,7 @@ testbin
 
 # Icon must end with two \r
 Icon
+
 
 # Thumbnails
 ._*
@@ -70,35 +87,20 @@ Temporary Items
 
 # Directories potentially created on remote AFP share
 
-### SublimeText ###
-# Cache files for Sublime Text
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
-# Workspace files are user-specific
-*.sublime-workspace
+# Local History for Visual Studio Code
+.history/
 
-# Project files should be checked into the repository, unless a significant
-# proportion of contributors will probably not be using Sublime Text
-# *.sublime-project
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
 
-# SFTP configuration file
-sftp-config.json
-sftp-config-alt*.json
-
-# Package control specific files
-Package Control.last-run
-Package Control.ca-list
-Package Control.ca-bundle
-Package Control.system-ca-bundle
-Package Control.cache/
-Package Control.ca-certs/
-Package Control.merged-ca-bundle
-Package Control.user-ca-bundle
-oscrypto-ca-bundle.crt
-bh_unicode_properties.cache
-
-# Sublime-github package stores a github token in this file
-# https://packagecontrol.io/packages/sublime-github
-GitHub.sublime-settings
+# End of https://www.toptal.com/developers/gitignore/api/osx,macos,go,linux,visualstudiocode

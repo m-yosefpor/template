@@ -5,6 +5,7 @@ NAME = TEMPLATE_SUBSTITUTE_PROJECT_NAME
 SHELL = bash
 IMAGE = $(NAME):local
 COMPOSE = IMAGE=$(IMAGE) docker-compose
+VERSION ?= $(shell svu next)
 
 ### commands
 vendor:
@@ -17,7 +18,7 @@ lint: vendor
 
 test: lint
 	go test ./... -race -covermode=atomic -coverprofile=coverage.out
-	go tool cover -html=coverage.out -o ./out/coverage.html
+	go tool cover -html=coverage.out -o coverage.html
 
 build: test
 	go build -o bin/main main.go
@@ -48,3 +49,21 @@ docker-rsh:
 
 docker-debug:
 	$(COMPOSE) run --entrypoint='sh' $(NAME) -c 'tail -f /dev/null'
+
+
+#############
+##@ Release
+
+
+.PHONY: changelog
+changelog: build ## Generate changelog
+	echo $(VERSION)
+	git-chglog --next-tag $(VERSION) -o CHANGELOG.md
+
+.PHONY: release
+release: changelog   ## Release a new tag
+	git add CHANGELOG.md
+	git commit -m "chore: update changelog for $(VERSION)"
+	git tag $(VERSION)
+	git push origin master $(VERSION)
+

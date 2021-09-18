@@ -5,15 +5,8 @@ ARG GO_VERSION=1.17
 # which is required when running tests.
 FROM golang:${GO_VERSION} AS builder
 
-ENV GO111MODULE=on \
-    GOOS=linux \
+ENV GOOS=linux \
     GOARCH=amd64
-
-
-RUN apt-get update && \
-    apt-get install -y \
-      git \
-      ca-certificates
 
 WORKDIR /src
 
@@ -26,27 +19,13 @@ COPY . /src
 RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o /app/main
 
 
-# 2. Runtime Container
-FROM docker.io/library/alpine:latest
+# Use distroless as minimal base image to package the manager binary
+# Refer to https://github.com/GoogleContainerTools/distroless for more details
+FROM gcr.io/distroless/static:nonroot
+WORKDIR /
+COPY --from=builder /workspace/manager .
+USER 65532:65532
 
-ENV TZ=UTC \
-    PATH="/app:${PATH}"
+COPY --from=builder /app/main /
 
-RUN apk add --update --no-cache \
-      tzdata \
-      ca-certificates \
-      bash \
-    && \
-    cp --remove-destination /usr/share/zoneinfo/${TZ} /etc/localtime && \
-    echo "${TZ}" > /etc/timezone && \
-    mkdir -p /var/log && \
-    chgrp -R 0 /var/log && \
-    chmod -R g=u /var/log
-
-WORKDIR /app
-
-EXPOSE 8080
-
-COPY --from=builder /app /app/
-
-CMD ["/app/main"]
+CMD ["/main"]

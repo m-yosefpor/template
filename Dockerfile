@@ -23,9 +23,7 @@ RUN CGO_ENABLED=0 go build -ldflags="-w -s" -o /app/main
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
 FROM gcr.io/distroless/static:nonroot
 WORKDIR /
-COPY --from=builder /workspace/manager .
-USER 65532:65532
-
 COPY --from=builder /app/main /
+USER 65532:65532
 
 CMD ["/main"]

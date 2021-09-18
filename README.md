@@ -39,6 +39,19 @@
 - pipeline must suceed
 - Jira integration?
 
+### Used
+
+- conventional commits v1.0.0: https://github.com/conventional-commits/conventionalcommits.org
+- semantic versioning v2.0.0: https://github.com/semver/semver
+- CODE_OF_CONDUCT: Contributor Covenant v2.1: https://github.com/EthicalSource/contributor_covenant
+- LICENSE: Apache 2.0
+
+- golangci-lint: https://github.com/golangci/golangci-lint
+- Semantic Version Util: https://github.com/caarlos0/svu
+- changelog generator: https://github.com/git-chglog/git-chglog
+- goreleaser: https://github.com/goreleaser/goreleaser
+- distroless: https://github.com/GoogleContainerTools/distroless
+- github: workflows, dependabot, issue form, pr template
 
 TODO: description
 
